@@ -7,6 +7,24 @@ import (
 	"strings"
 )
 
+// Store the detected distro
+var cachedDistro string
+var distroErr error
+
+func InitDistr() error {
+	cachedDistro, distroErr = DetectDistro()
+	if distroErr != nil {
+		return distroErr
+	}
+	fmt.Println("Detected Distro:", cachedDistro)
+	return nil
+}
+
+// use this everywhere to get the distro
+func GetDistr() (string, error) {
+	return cachedDistro, distroErr
+}
+
 func DetectDistro() (string, error) {
 	path := "/etc/os-release"
 	fileHandle, err := os.Open(path)

@@ -1,23 +1,19 @@
 package cmd
 
 import (
-	"fmt"
-
+	"github.com/jmilne22/distrohop/internal/flows"
 	"github.com/spf13/cobra"
 )
 
 // stateCmd represents the state command
 var stateCmd = &cobra.Command{
 	Use:   "state",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Compares the state of packages on the system vs the config.yaml",
+	Long: `Compares packages installed on the system vs what's specified in the config.yaml:
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("state called")
+Gives a list of the state of each package and whether it's installed or not`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return flows.State()
 	},
 }
 
